@@ -5,7 +5,7 @@ import com.pqtran.workspace.utility.ArgumentParser;
 import com.pqtran.workspace.utility.Executor;
 
 public class App {
-    private static String DEFAULT_INPUT = "data";
+    private static String DEFAULT_INPUT = "sample";
 
     public static void main(String[] args) throws Exception {
         Map<String, String> argMap = ArgumentParser.parseArguments(args);
