@@ -16,9 +16,10 @@ public class Day2 implements Executable {
     private List<PasswordPolicy> parsePolicies() throws IOException {
         List<PasswordPolicy> policies = new ArrayList<>();
 
-        BufferedReader reader = this.resourceFile.getReader();
-        for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-            policies.add(new PasswordPolicy(line));
+        try (BufferedReader reader = this.resourceFile.getReader()) {
+            for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+                policies.add(new PasswordPolicy(line));
+            }
         }
 
         return policies;

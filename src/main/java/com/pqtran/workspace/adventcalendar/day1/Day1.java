@@ -16,16 +16,16 @@ public class Day1 implements Executable {
 
     public void executePartOne() throws IOException {
         List<Integer> expenses = getExpenses();
-
         System.out.println(calculateExpenseReport(expenses, EXPENSE_TOTAL));
     }
 
     private List<Integer> getExpenses() throws IOException {
         List<Integer> values = new ArrayList<>();
-        BufferedReader reader = this.resourceFile.getReader();
-        for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-            Integer value = Integer.parseInt(line);
-            values.add(value);
+        try (BufferedReader reader = this.resourceFile.getReader()) {
+            for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+                Integer value = Integer.parseInt(line);
+                values.add(value);
+            }
         }
 
         return values;
@@ -53,7 +53,7 @@ public class Day1 implements Executable {
         System.out.println(calculateComplexExpenseReport(expenses, EXPENSE_TOTAL));
     }
 
-    private int calculateComplexExpenseReport(List<Integer> expenses, int targetSum) {
+    private long calculateComplexExpenseReport(List<Integer> expenses, int targetSum) {
         Map<Integer, Integer> expenseCount = new HashMap<>();
         expenses.stream().forEach(expense ->
                                   expenseCount.put(expense, expenseCount.getOrDefault(expense, 0) + 1));
@@ -68,7 +68,7 @@ public class Day1 implements Executable {
                 Integer thirdVal = targetSum - (firstVal + secondVal);
                 if (expenseCount.containsKey(thirdVal) &&
                     expenseCount.get(thirdVal) > 0) {
-                    return firstVal * secondVal * thirdVal;
+                    return (long) firstVal * (long) secondVal * (long) thirdVal;
                 } else {
                     expenseCount.put(firstVal, expenseCount.get(firstVal) + 1);
                     expenseCount.put(secondVal, expenseCount.get(secondVal) + 1);
