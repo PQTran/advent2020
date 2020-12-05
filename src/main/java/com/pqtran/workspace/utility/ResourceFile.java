@@ -9,8 +9,13 @@ public class ResourceFile {
         this.resourceName = resourceName;
     }
 
-    public BufferedReader getReader() {
+    public BufferedReader getReader() throws FileNotFoundException {
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(resourceName);
+
+        if (inputStream == null) {
+            throw new FileNotFoundException(String.format("resource file: %s not found", this.resourceName));
+        }
+
         return new BufferedReader(new InputStreamReader(inputStream));
     }
 }
